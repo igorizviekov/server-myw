@@ -43,9 +43,11 @@ module.exports = {
       from: keys.myEmail,
       subject: "New feedback from a website",
       html: `
-      <h4>Email:${args.userInput.email}</h4>
-      <p>Name:<strong> ${args.userInput.firstName}</strong></p>
-      <p>Last Name:<strong>${args.userInput.lastName}</strong></p>
+      <h4>From:</h4>
+      <h4>${args.userInput.email}</h4>
+      <h4>${args.userInput.firstName} ${args.userInput.lastName}</h4>
+      <hr/>
+      <h4>Message:</h4>
       <p>${args.userInput.message}</p>
       `
     });
@@ -60,7 +62,12 @@ module.exports = {
   },
   skills: async function() {
     const skills = await Skill.find();
-    return skills;
+    const design = skills.filter(s => s.design);
+    const code = skills.filter(s => s.code);
+    return {
+      design: design,
+      code: code
+    };
   },
   imageURL: async function() {
     const links = await Skill.find();

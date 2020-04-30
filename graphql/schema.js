@@ -14,10 +14,19 @@ module.exports = buildSchema(`
         id: ID!
     }
 
-    type skillData {
+    type codeData {
         id: ID!
-        code: String
-        design: String
+        code: String!
+    }
+
+    type designData {
+        id: ID!
+        design: String!
+    }
+
+    type skillData {
+        code: [codeData]!
+        design: [designData]!
     }
 
     input userData {
@@ -33,7 +42,7 @@ module.exports = buildSchema(`
 
     type RootQuery  {
         projects: [Project!]
-        skills: [skillData!]
+        skills: skillData!
         imageURL:  String!
     }
 
