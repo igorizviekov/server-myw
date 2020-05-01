@@ -3,12 +3,13 @@ const keys = require("./keys");
 const app = express();
 const mongoose = require("mongoose");
 const helmet = require("helmet");
+const compression = require("compression");
 //GraphQL
 const graphqlElement = require("express-graphql");
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolver = require("./graphql/resolvers");
 app.use(helmet());
-
+app.use(compression());
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST");
