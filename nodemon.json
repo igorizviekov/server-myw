@@ -1,7 +1,0 @@
-{
-    "env": {
-        "MONGO_DATABASE": "mongodb+srv://igorizviekov:orion122@nodepractice-fv2cp.mongodb.net/my-website?retryWrites=true&w=majority",
-        "MAILER_KEY": "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",
-        "MY_EMAIL":"igorizviekov@gmail.com"
-    }
-}
