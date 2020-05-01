@@ -1,20 +1,17 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const keys = require("./keys");
 const app = express();
 const mongoose = require("mongoose");
-
+const helmet = require("helmet");
 //GraphQL
 const graphqlElement = require("express-graphql");
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolver = require("./graphql/resolvers");
+app.use(helmet());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE"
-  );
+  res.setHeader("Access-Control-Allow-Methods", "POST");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   if (req.method === "OPTIONS") {
     return res.sendStatus(200);
@@ -30,9 +27,7 @@ app.use(
     graphiql: true
   })
 );
-
 app.use((error, req, res, next) => {
-  console.log(error);
   const status = error.statusCode || 500;
   const message = error.message;
   res.status(status).json({ message: message });
@@ -46,6 +41,6 @@ mongoose
     useUnifiedTopology: true
   })
   .then(() => {
-    app.listen(8080);
+    app.listen(process.env.PORT || 8080);
   })
   .catch(err => console.log(err));
